@@ -8,7 +8,7 @@
 
 /************************************** const と let **************************************/
 
-function constAndLet(){
+function constAndLet() {
 // const
   // constは再代入が不可な変数
   const bookTitle = "JS practice";
@@ -57,7 +57,7 @@ function constAndLet(){
 
 // まとめ
   // まずconstで定義できないか検討し、出来ない場合はletで書いていく
-}
+};
 constAndLet();
 
 
@@ -96,11 +96,11 @@ function checkNumber() {
   // eは指数を意味する。
   // 2e8は2x10の8乗
   console.log(14, 2e8); // 200000000
-}
+};
 checkNumber();
 
 
-function checkString(){
+function checkString() {
 // 文字列リテラル
   // ダブルクオートとシングルクオートは同じ文字列扱いとして評価される
 
@@ -127,11 +127,11 @@ function checkString(){
   // リテラルを含める場合、エスケープを使う
   console.log(20, `this is \`str\``); // "this is `str`"
 
-}
+};
 checkString();
 
 
-function checkNull(){
+function checkNull() {
 // null
   // null = 値がない
   // 未定義の変数を参照するとエラー
@@ -144,7 +144,7 @@ function checkNull(){
   // foo.hoge = "aaa";
   // console.log(21.2, foo); <= Uncaught TypeError: Cannot set property 'hoge' of null
 
-  // constで定義しているので再代入はもちろん不可
+  // constで定義しているので再代入は不可
   // foo = {};
   // console.log(21.1-1, foo); <= Uncaught TypeError: Assignment to constant variable.
 
@@ -157,5 +157,78 @@ function checkNull(){
   
   f.hoge = "bbb";
   console.log(21.5, f); // {hoge: "bbb"}
-}
+};
 checkNull();
+
+
+
+function checkObj() {
+// オブジェクトリテラル
+  // プリミティブ型以外はすべてオブジェクト型である
+
+  // 参照方法はドット（.）で繋ぐか、ブラケット（[]）で参照する
+  const obj = {
+    "key": "value"
+  };
+  
+  // dot
+  console.log(22.1, obj.key); // "value"
+  
+  // braket
+  console.log(22.2, obj["key"]); // "value"
+
+  const numObj = {
+    123: "value",
+    "123": "str value"
+  };
+  console.log(23.1, numObj[123]); // "value"
+  console.log(23.2, numObj["123"]); // "str value" 23.1の123も上書きされてしまう
+  // console.log(23.2, numObj.123); <= Uncaught SyntaxError: missing ) after argument list
+};
+checkObj();
+
+
+
+function checkArr() {
+// 配列リテラル
+  const empArr = [];
+  const array = [1, 2, 3];
+
+  // 配列の値は添字を持っているので、配列に対してarray[index]で値を参照できる
+  console.log(24, array[0]); // 1
+};
+checkArr();
+
+
+function checkReg() {
+// 正規表現リテラル
+  //ex: 1文字以上の数字にマッチする
+  const numReg = /\d+/;
+  console.log(25, numReg.test(123)); // true
+};
+checkReg();
+
+
+function checkWrapObj() {
+// プリミティブ型とオブジェクト
+  // プリミティブ型をboolean, number, stringはオブジェクトとして表現することが可能
+  // プリミティブ型の値をラップしたようなオブジェクトのため、ラッパーオブジェクトと呼ぶ
+
+  // ラッパーオブジェクト
+  // new演算子と対応するコンストラクタ関数で作成
+  // ex: new String
+  const str = new String("文字列");
+  
+  // オブジェクトなので、typeofで調べるとobjectが返ってくる
+  // プリミティブ型のデータにアクセスする際、ラッパーオブジェクトが暗黙の型変換を行っているため  
+  console.log(26, typeof str); // object
+  // 文字数も返ってくる
+  console.log(27, str.length); // 3
+
+  // ただし、明示的にラッパーオブジェクトを使用しないようにする
+  // プリミティブ型でもオブジェクトのように参照できる仕組みなため
+  const s = "文字列";
+  console.log(28, typeof s); // "string"
+  console.log(29, s.length); // 3
+}
+checkWrapObj();
