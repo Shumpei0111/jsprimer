@@ -244,3 +244,52 @@ function checkWrapObj() {
   console.log(29, s.length); // 3
 }
 checkWrapObj();
+
+
+/************************************** Operand **************************************/
+function checkOprand(){
+// オペランド（演算子）
+  // ＋演算子が値同士を足し算する場合
+  // ex: 1 + 2;
+  // このとき、値である1と2がオペランド
+
+  // 二項演算子
+    // 演算子に対して２つのオペランドを取ること
+    // ex: 1 + 2;
+    // つまり、先の例は二項演算子である
+
+  // 単項演算子
+    // １つの演算子に対して１つのオペランドを取る場合もある
+    // ex: インクリメント
+    let num = 1;
+    num++;
+    //or
+    ++num;
+
+  // べき乗演算子（**）
+    // ES2016～から追加された演算子。
+    console.log(30, 2**4); // 16（2の4乗）
+    
+    // べき乗演算子と同じ動作をするMath.powメソッドもある
+    console.log(30.1, Math.pow(2, 4)); // 16 
+
+  // 算術演算子
+    // 単行プラス演算子（+）
+      // 数値以外も数値へ変換する
+      console.log(31, +"1"); // 1
+      let a = "1";
+      let b = 1;
+      console.log(31.1, +a, b); // 1, 1
+      console.log(31.2, typeof a, typeof +a, typeof b); // string, number, number
+
+      // 数値に変換できない文字列はNaNに変換される
+      console.log(32, +"文字"); // NaN
+      // この書き方で変換することは非推奨である
+      // 変換したい場合はNumberコンストラクタや、parseInt関数を使用して明示的に変換する
+
+      // NaN
+      console.log(33.1, NaN === NaN); // false 自分自身とも一致しない
+      console.log(33.2, typeof NaN); // number number型
+      console.log(33.3, Number.isNaN(NaN)); // true isNaN()メソッドでのみ確認できる
+}
+checkOprand();
