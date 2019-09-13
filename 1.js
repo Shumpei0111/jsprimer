@@ -291,5 +291,120 @@ function checkOprand(){
       console.log(33.1, NaN === NaN); // false 自分自身とも一致しない
       console.log(33.2, typeof NaN); // number number型
       console.log(33.3, Number.isNaN(NaN)); // true isNaN()メソッドでのみ確認できる
+
+    // 単行マイナス演算子（-）
+      // 単行マイナス演算子はマイナスの数値を反転できる
+      console.log(34.1, -(-1)); // 1
+
+      // 単行プラス演算子と同じく非推奨の書き方
+      console.log(34.2, -"1"); // -1
+      console.log(34.3, -"文字列"); // NaN
+
+
+    // インクリメント演算子（++）
+      // num++ ... ++を後ろに置く
+        // 1, numの評価結果を返す
+        // 2, numに対して+1する
+        // そのため、num++が返す値は+1する前の値となる
+        let x = 1;
+        console.log(35.1, x++); // 1
+        console.log(35.2, x); // 2
+
+      // ++num ... ++を前に置く
+        // 1, numに対して+1する
+        // 2, numの評価結果を返す
+        // そのため、++numが返す値は+1した後の値となる
+        let y = 1;
+        console.log(36.1, ++y); // 2
+        console.log(36.2, y); // 2
+
+
+    // デクリメント演算子
+      // インクリメント演算子と同じ挙動
+
+
+    // 厳密等価演算子（===）
+      const objA = {};
+      const objB = {};
+      console.log(37.1, objA === objB); // false
+      console.log(37.2, objA === objA); // true
+
+    
+    // 等価演算子（==）
+      const objC = {};
+      const objD = {};
+      console.log(37.3, objC == objD); // false
+      console.log(37.4, objC == objC); // true
+
+      /////////////暗黙の型変換/////////////
+      console.log(38.1, "1 == '1'", 1 == "1"); // true
+      console.log(38.2, "1 == '01'", 1 == "01"); // true
+      console.log(38.3, "0 == false", 0 == false); // 真偽値を数値変換後に比較　true
+      console.log(38.4, "0 == null", 0 == null); // false
+      console.log(38.5, "null == undefined", null == undefined); // 常にtrue
+      /////////////暗黙の型変換/////////////
+
+      // null undefined判定
+      const val = undefined;
+
+      if(val === null || val === undefined) {
+        console.log(39.1, "nullまたはundefinedの処理");
+      }
+
+      if(val == null) {
+        console.log(39.2, "nullまたはundefinedの処理...nullとundefinedの比較は常にtrueなので等価演算子（==）で比較するだけで良い");
+      }
+      
 }
 checkOprand();
+
+/************************************** Bit **************************************/
+
+function checkBit() {
+  // ビット演算子
+    // Number#toStringメソッドを使うことで2進数表記の文字列を取得する
+    // ex
+    console.log(40, (9).toString(2)); // 1001
+
+    // 補数表現
+    // ゼロ桁埋め右シフトから2進数表記を取得
+    // ex
+    console.log(41, (-9 >>> 0 ).toString(2)); // 11111111111111111111111111110111
+
+    // ビット論理積（&）
+    // AND演算
+    // ２つの値を比較して、どちらも1なら1、どちらか片方でも0の場合は0を返します。
+    // フラグをビット管理している時に、そのフラグが立っているのかを調べたりするのに使います。
+    console.log(42, 15 & 9); // 15 => 1111  9 => 1001  A.9(1001)
+
+    // ビット論理和（|）
+    // OR演算
+    // ２つの値を比較して、どちらかが1なら1、どちらも0の場合は0を返します。
+    // フラグをビット管理している時に、そのフラグを立てる時などに使います
+    console.log(43, 15 | 9); // 15 => 1111  9 => 1001  A.15(1111)
+
+    // ビット排他的論理和（^）
+    // XOR演算
+    // ２つの値を比較して、どちか片方だけ1なら1、どちらも0またはどちらも1の場合は0を返します。
+    // どこが違うか調べるときなどで使います。
+    console.log(44, 15 ^ 9); // 15 => 1111  9 => 1001  A.6(0110)
+
+    // ビット否定（~）
+    // 単項演算子の否定演算子（~）はオペランドを反転した値を返します。 これは1の補数として知られている値と同じものです。
+    console.log(45.1, ~15); // 15を10進数で反転して-15, 1の補数なのでさらに-1する  A.-16
+
+    // 否定演算子（~）はビット演算以外でも使われていることがあります。
+    // 文字列（Stringオブジェクト）がもつindexOfメソッドは、
+    // マッチする文字列を見つけて、そのインデックス（位置）を返すメソッドです。
+    // このindexOfメソッドは、検索対象が見つからない場合には-1を返します。
+    var wd = "ああああいああああ";
+    console.log(45.2, wd.indexOf("あ") + "番目"); // 0番目
+    console.log(45.3, wd.indexOf("い") + "番目"); // 4番目
+    console.log(45.4, wd.indexOf("あい") + "番目"); // 3番目
+    console.log(45.5, wd.indexOf("う") + "番目"); // -1番目
+    
+
+
+}
+checkBit();
+
