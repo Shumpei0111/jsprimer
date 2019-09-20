@@ -402,9 +402,41 @@ function checkBit() {
     console.log(45.3, wd.indexOf("い") + "番目"); // 4番目
     console.log(45.4, wd.indexOf("あい") + "番目"); // 3番目
     console.log(45.5, wd.indexOf("う") + "番目"); // -1番目
-    
 
-
-}
+};
 checkBit();
+
+/************************************** [ES2015(ES6) 分割代入 destructuring assingnment] **************************************/
+
+function checkDA() {
+  // ES2015では配列やオブジェクトの値を複数の変数へ同時に代入することができる
+  const arr = [1, 2];
+
+  // arrの0番目をaに、1番目をbに代入
+  const [a, b] = arr;
+  console.log(46.1, a); // 1
+  console.log(46.2, b); // 2
+
+  // 同じ意味
+  const ar = [1, 2];
+  const ara = ar[0];
+  const arb = ar[1];
+  
+  // オブジェクトでも同じように扱うことが出来る
+  const obj = {
+    "key" : "value"
+  };
+
+  const { key } = obj;
+  console.log(47.1, key); // "value"
+
+  // 同じ意味
+  const o = {
+    "key": "value"
+  };
+
+  const o_key = o.key;
+  console.log(47.2, o_key); // "value"
+};
+checkDA();
 
