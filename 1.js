@@ -440,3 +440,81 @@ function checkDA() {
 };
 checkDA();
 
+/************************************** 三項演算子 **************************************/
+
+function checkIf() {
+  // 条件演算子（？と：）
+  // 条件式 ? Trueの時処理する式 : Falseの時処理する式;
+
+  // if文との違いは式として書けるので、値を返すことが出来る
+  const valA = true ? "A" : "B";
+  console.log(48.1, valA); // "A"  < 式的に常にtrueだからAが返ってくる
+
+  const valB = false ? "A" : "B";
+  console.log(48.2, valB); // "B"  < 式的に常にfalseだからBが返ってくる
+
+
+  // 何がいいか?
+  //
+  // 条件分岐による値を返すことが出来るので、変数の初期値を条件によってコントロールできる
+  // 次の例では、text文字列にprefixとなる文字列を先頭に付ける関数を書いています。
+  // prefixの第二引数を省略したり文字列ではないものが指定された場合に、デフォルトのprefixを使います。 
+  // 第二引数が省略された場合には、prefixにundefinedが入ります。
+  // 条件演算子の評価結果は値を返すので、constを使って宣言と同時に代入できます。
+
+  function addPrefix(txt, prefix) {
+    // prefixが指定されなければ”デフォルト：”をつける
+    const pre = typeof prefix === "string" ? prefix : "デフォルト：";
+    return pre + txt; 
+  }
+  console.log(49.1, addPrefix("文字列")); // "デフォルト：文字列"  引数が足りないので"デフォルト："が呼ばれる
+  console.log(49.2, addPrefix("文字列", "カスタム")); // カスタム文字列
+  console.log(49.3, addPrefix(0)); // "デフォルト：0"  文字列が渡っていないので"デフォルト："が呼ばれる
+
+  // if文の場合は、宣言と代入を分ける必要があるため、constが使えない
+  function addPrefix2(txt, prefix) {
+    let pre = "デフォルト：";
+    if(typeof prefix === "string") {
+      pre = prefix;
+    }
+    return pre + txt;
+  }
+  console.log(50.1, addPrefix2("文字列")); // "デフォルト：文字列"
+  console.log(50.2, addPrefix2("文字列", "カスタム")); // カスタム文字列
+  console.log(50.3, addPrefix2(0)); // デフォルト：0
+
+}
+checkIf();
+
+
+/************************************** 論理演算子 **************************************/
+
+function checkAnd() {
+  const value = "str";
+  if (typeof value === "string" && value === "str") {
+    console.log(51, `${value} is string value`);
+  }
+}
+checkAnd();
+
+
+/************************************** グループ演算子 **************************************/
+
+function checkG() {
+  const a = 1;
+  const b = 2;
+  const c = 3;
+
+  console.log(52.1, a + b + c);  // 6
+  console.log(52.2, (a + b) * c); // 9
+}
+checkG();
+
+/************************************** カンマ演算子 **************************************/
+
+function checkC() {
+  // 式の左から評価され、最後の式の評価を返す
+  const a = 1, b = 2, c = a + b;
+  console.log(53, c); // 3
+}
+checkC();
