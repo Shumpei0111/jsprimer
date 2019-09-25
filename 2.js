@@ -254,7 +254,7 @@ checkNaN();
 
 /************************************** 明示的な変換でも解決しないこと **************************************/
 
-// 先ほどの例からも分かるように、あらゆるケースが明示的な変換で解決できるわけではありません。 
+// あらゆるケースが明示的な変換で解決できるわけではありません。 
 // Number型と互換性がない値を数値にしても、NaNとなってしまいます。
 //  一度、NaNになってしまうとNumber.isNaN(x)で判定して処理を終えるしかありません。
 // JavaScriptの型変換は基本的に情報が減る方向へしか変換できません。 
@@ -287,3 +287,150 @@ function checkEmp() {
   // Boolの場合、安易に型変換でチェックせずに別の方法でチェックできないか検討する必要がある
 }
 checkEmp();
+
+
+/************************************** 関数と宣言 **************************************/
+
+function checkReturn() {
+
+  // return で値を返すとは
+  //
+  // return で値を返すことで、その値を使ってさらに別の処理を続けることができる
+  // return がないと処理をするだけで終了し、戻り値はundefinedになる
+  function multiple(num) {
+    return num * 2;
+  }
+  console.log(9.1, multiple(19));
+}
+checkReturn();
+
+function checkArg() {
+  
+  // 引数の数
+  //
+  // 呼び出し時の引数が少ないとき
+  // 余ったらundefinedが入る
+  function args(l, n, m) {
+     return [l, n, m];
+  }
+  console.log(10.1, args(10)); // [10, undefined, undefined]
+  console.log(10.2, args(10, 20)); // [10, 20, undefined]
+  console.log(10.3, args(10, 20, 30)); // [10, 20, 30]
+
+
+  /********** [ES2015(ES6)] デフォルト引数 **********/
+  function checkDef(a="デフォルト引数") {
+    return a;
+  }
+  console.log(10.4, checkDef(1)); // 1
+  console.log(10.5, checkDef());  // "デフォルト引数"
+}
+checkArg();
+
+
+function moreArgs() {
+  
+  // 呼び出し引数が多いときは、単純に無視される
+  function add(a, b) {
+    return a + b;
+  }
+  console.log(11.1, add(1,2));   // 3
+  console.log(11.2, add(1,2,3)); // 3
+}
+moreArgs();
+
+
+function restParams() {
+  // 可変長引数
+  //
+  // 引数を固定の個数ではなく、任意の個数を受け取る
+  
+  // Math.max => 引数の中で最大の数値を返す
+  const max = Math.max(1,2,3,100,4);
+  console.log(12.1, max); // 100  
+
+
+  /********** [ES2015(ES6)] Rest Parameters **********/
+  // ...から始まる可変長引数の書き方
+  // 配列ライクに引数を取り出せるが、あくまで配列ライクなので、
+  // 配列のメソッドは使えない
+  function rP(...args) {
+    console.log(12.2, args[0]); // 20
+    console.log(12.3, args[1]); // 30
+    console.log(12.4, args[2]); // 40
+  }
+  rP(20,30,40);
+
+  // 複数の引数の中にRest Parametersを混ぜても良い
+  // その場合は引数の最後に書く
+  function rP2(a, ...args) {
+    console.log(12.5, a);    // 10
+    console.log(12.6, args); // [20, 30]
+  }
+  rP2(10, 20, 30);
+
+  // Spread構文
+  function rpSpread(...args) {
+    console.log(13.1, args[0]); // "a"
+    console.log(13.2, args[1]); // "b"
+    console.log(13.3, args[2]); // "c"
+  }
+  const arr = ["a", "b", "c"]; 
+  rpSpread(...arr);
+  rpSpread(arr[0], arr[1], arr[2]); // <= 上と同じ意味 
+}
+restParams();
+
+
+function fnDst() {
+  // 関数の分割代入
+  //
+  // オブジェクトや配列からプロパティを取り出し、変数として定義し直すこと
+  function usrId(usr) {
+    console.log(14.1, usr.id); // 100
+  }
+  const user = {
+    id: 100
+  };
+  usrId(user);
+
+  /******************** オブジェクトの分割代入 ****************************/
+  const fruit = {
+    price: 100
+  };
+  const { price } = fruit;
+  console.log(14.2, price);   // 100
+
+  function printPrice({price}) {
+    console.log(14.3, price); // 100
+  }
+  printPrice(fruit);
+
+
+  /******************** 配列の分割代入 ****************************/
+  function print([first, second]) {
+    console.log(14.4, first);  // 1
+    console.log(14.5, second); // 2
+  }
+  const ar = [1, 2];
+  print(ar);
+
+}
+fnDst();
+
+
+/******************** 関数はオブジェクト ****************************/
+function fnObj() {
+
+  // 関数は関数オブジェクト
+  //
+  // ()をつけて書くと処理を実行する
+  // ()をつけないで書くとオブジェクトとして式（代入）扱いすることができる
+  
+  function fn() {
+    console.log(15.1, "function fn(){}");
+  }
+  const myFn = fn;
+  myFn(); // "function fn(){}"
+}
+fnObj();
