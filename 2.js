@@ -434,3 +434,107 @@ function fnObj() {
   myFn(); // "function fn(){}"
 }
 fnObj();
+
+
+
+// アロー関数
+function checkArrow() {
+  const fnA = () => {/* 引数ないとき */};
+  const fnB = (x) => {/* 引数がひとつ */};
+  const fnC = x => {/* 引数がひとつだけなら()を省略 */};
+  const fnD = (x,y) => {/* 引数が複数ある場合 */};
+
+  // 値の返し方
+  const mulA = x => { return x * s; }; // ブロックの中でreturn
+  const mulB = x => x + d; // 1行のみの場合はreturnとブロックを省略できる
+
+  // アロー関数の特徴
+  // 常に無名関数
+  // thisが静的に決定できる
+  // functionに比べて短く書ける
+  // newできない（コンストラクタ関数ではない）
+  // argments変数を参照できない
+  //
+  // functionキーワードの関数式との比較
+  const arr = [1, 2, 3];
+  const doubleArr = arr.map(function (val) {
+    return val * 2;
+  });
+  console.log(16.1, doubleArr);
+
+  const ar = [1, 2, 3];
+  const doubleAr = ar.map(value => value * 2);
+  console.log(16.2, doubleAr);
+}
+checkArrow();
+
+
+// コールバック関数
+//
+// 引数として渡すことが出来る関数
+// その場で作った匿名の関数を、関数の引数（値）として渡すことができる
+// コールバックを使う関数のことを「高階関数」と呼ぶ
+
+function checkCallBack(){
+
+  function kokaiKanSu(callback) {
+    collback();
+  }
+
+  // forEachはコールバック関数を引数として受け取る高階関数である
+  // forEachは配列の各要素に対してコールバック関数を一度ずつ呼び出している
+  const arr = [1, 2, 3];
+  arr.forEach((val) => {
+    console.log(17, val);
+  })
+
+};
+checkCallBack();
+
+
+// メソッド
+
+// オブジェクトのプロパティである関数をメソッドと呼ぶ
+// JSにおいては関数とメソッドの機能的な違いはない
+
+// 例
+function checkMethod() {
+ 
+  const obj = {
+    method1: function() {
+      // オブジェクトの中の関数なのでメソッド
+    },
+    method2: function() {
+      // オブジェクトなので増やすときはカンマで増やしていく
+    },
+    method3: () => {
+      // アロー関数でも問題ない
+    }
+  };
+
+  const obj2 = {};
+  obj2.method = function() {
+    // 先にobj2を宣言してからmethodプロパティに関数を代入してメソッドを定義することもできる    
+  };
+
+
+  // メソッドを呼び出す
+  const o = {
+    method: function() {
+      return "this is method";
+    }
+  };
+  console.log(18.1, o.method()); // "this is method"
+
+
+  // ES2015でのメソッドの短縮記法
+  // method: function()て書かない
+  // オブジェクトリテラルの中で、"メソッド名(){ メソッドの処理 }"と書ける
+  const m = {
+    method() {
+      return "this is method";
+    }
+  };
+  console.log(18.2, m.method()); // "this is method"
+}
+checkMethod();
