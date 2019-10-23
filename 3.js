@@ -148,3 +148,40 @@ function semi(){
   // 代入した式だから
 }
 semi();
+
+
+/****************************************** 条件分岐 ********************************************/
+
+// if文
+
+function checkIf(){
+
+  // if文の場合、falsyな値はすべてfalseで扱われる
+  // これ以外の場合は、暗黙的にtrueとして扱われる
+  const falsyList = [
+    false,
+    undefined,
+    null,
+    0,
+    NaN,
+    "" // 空文字
+  ];
+  console.log(falsyList);
+
+  const zero = "0";
+  if(zero) {
+    console.log("a = 0");
+  }
+
+
+  const falsy = "false";
+
+  if(falsy) {
+    console.log(falsy.aa = "aa");
+    console.log(falsy);
+  }
+}
+checkIf();
+
+
+// 
