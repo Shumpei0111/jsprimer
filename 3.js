@@ -356,10 +356,11 @@ function forEachCheck() {
   const arr = [{a:1, b:100}, 2, 3];
   arr.forEach(currentVal => {
     // ループごとに実行する処理
-    console.log(currentVal);
+    console.log(1000, currentVal);
     arr.push(2);
   });
-  console.log(arr);
+  console.log(arr); // [{a:1, b:100}, 2, 3, 2, 2, 2] <= 3つの配列の要素を1つずつ取り出して2をpushしているから
+
   // forEachメソッドのコールバック関数には、配列の要素が先頭から順番に渡されて実行される
   // 上記の例では、currentValには1から3の値が順に渡される
 
@@ -543,3 +544,127 @@ function arrFilter() {
   console.log(22,ar.filter(isEven));
 }
 arrFilter();
+
+
+
+// for...in文
+// for...inはオブジェクトのプロパティに対して、順不同で反復処理を行う
+
+function forInCheck() {
+  //ex
+  // for(プロパティ in オブジェクト) {
+  //   実行する文;
+  // }
+
+  // objのプロパティ名をkey変数に代入
+  // objには、3つのプロパティがあるため3回繰り返される
+  const o = {
+    "a": 1,
+    "b": 2,
+    "c": 3
+  };
+
+  for (const key in o) {
+    const val = o[key];
+    console.log(23, `key: ${key}, val: ${val}`);
+  }
+
+  /*******************************************/
+  /** for..inは継承している親オブジェクトまで見に行って検索して列挙してしまうため、
+   * 意図した結果にならないため、使うべきではない
+   * 安全にオブジェクトのプロパティを列挙するには、Object.keysメソッド、Object.valuesメソッド、
+   * Object.entriesメソッドなどが利用できる */
+  /*******************************************/
+  const ob = {
+    "a": 1,
+    "b": 2,
+    "c": 3
+  };
+
+  Object.keys(ob).forEach(key => {
+    const val = ob[key];
+    console.log(24, `key: ${key}, val: ${val}`);
+  })
+
+
+  /******* 配列の操作のだめなパターン *******/
+  const arrNs = [5, 10];
+  let t = 0;
+  for (const ns in arrNs) {
+    // 0 + "0" + "1"
+    t += ns;
+  }
+  console.log(25, t); // "001"
+  // 文字列変換されるし、文字列変換された配列のインデックスを返してくるから意図した結果にならない
+
+  // 配列に対して反復処理する場合は、
+  // for
+  // for...of
+  // を使う
+  
+}
+forInCheck();
+
+
+
+function forOf() {
+  // JSでは、Symbol.iteratorというメソッドを実装したオブジェクトをiterableという
+  // iterableオブジェクトはfor..ofで反復処理できる
+
+  // iterableオブジェクトは、iterableから値を1つ取り出し、variableに代入して反復処理する
+
+  // for (variable of iterable) {
+  //   // 実行する文;
+  // }
+
+  /******************************** Arrayはiterableオブジェクト ********************************/
+  // for...ofは配列から値を取り出すことが出来る
+  const arr = [1, 2, 3, "aa", false, {obj: ""}];
+  for (const v of arr) {
+    console.log(26, v); 
+  }
+  // 26 1
+  // 26 2
+  // 26 3
+  // 26 "aa"
+  // 26 false
+  // 26 {obj: ""}
+
+  /******************************** JSではStringもiterableオブジェクト ********************************/
+  const str = "吉野家";
+  for (const val of str) {
+    console.log(27, val);
+  }
+  // 27 "吉"
+  // 27 "野"
+  // 27 "家"
+
+}
+forOf();
+
+/************************************* letではなくconstで反復処理する *************************************/
+
+/**
+ * for文やforEachは宣言した変数を書き換える挙動なので、constは使えない
+ * そのため、反復処理した結果を受け取る方法が必要になる
+ * 
+ * 配列には、"reduce"メソッドは2つずつ要素をとりだし（左から右へ）、その値をコールバック関数に適用し、
+ * "次の値"として1つの値を返す
+ * 最終的な、reduceメソッドの返り値は、コールバック関数が最後にreturnした値となる
+ */
+
+
+//  arr = [1,2,3];
+//  const res = arr.reduce(("前回の値", "現在の値") => {
+//    return "次の値";
+//  }, "初期値");
+
+/***** ex *****/
+function sum(nums) { // 前回の値, 現在の値
+  return nums.reduce((total, num) => {
+    return total + num; // 次の値
+  }, 0); // 初期値が0
+}
+
+console.log(sum([1, 2, 3, 4, 5])); // 15
+
